@@ -1,0 +1,219 @@
+:root {
+    --soft-ember-primary: #1E2A33;
+    --soft-ember-secondary: #f4f4f2;
+    --soft-ember-accent: #f4a261;
+    --soft-ember-shadow: #141c22;
+}
+
+/* Adding new Fonts */
+/* Monospace */
+@font-face {
+    font-family: "WenkaiMono";
+    src: url("./res/fonts/monospace/LXGWWenKaiMonoTC-Regular.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "KodeMono";
+    src: url("./res/fonts/monospace/KodeMono-VariableFont_wght.ttf");
+    font-display: swap;
+}
+
+/* Sans-Serif */
+@font-face {
+    font-family: "Inter";
+    src: url("./res/fonts/sans-serif/Inter-VariableFont_whgt.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("./res/fonts/sans-serif/Poppins-Regular.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Rubik";
+    src: url("./res/fonts/sans-serif/Rubik-VariableFont_wght.ttf");
+    font-display: swap;
+}
+
+/* Serif */
+@font-face {
+    font-family: "Lora";
+    src: url("./res/fonts/serif/Lora-VariableFont_wght.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Merriweather";
+    src: url("./res/fonts/serif/Merriweather-VariableFont.ttf");
+    font-display: swap;
+}
+
+/* Manuscript */
+@font-face {
+    font-family: "DancingScript";
+    src: url("./res/fonts/manuscript/DancingScript-VariableFont_wght.ttf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Satisfy";
+    src: url("./res/fonts/manuscript/Satisfy-Regular.ttf");
+    font-display: swap;
+}
+
+/* Small Reset */
+*, *:after, *:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "KodeMono";
+    color: var(--soft-ember-primary);
+    background-color: var(--soft-ember-secondary);
+    cursor: default;
+}
+
+/* Style that will be kept between all the pages */
+
+main {
+    display: grid;
+    grid-template-columns: 170px 1fr 30px;
+    grid-template-rows: minmax(350px, 1fr);
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
+}
+
+.banner, .sidebar, footer {
+    color: var(--soft-ember-secondary);
+    background-color: var(--soft-ember-primary);
+    border: transparent 3px solid;
+}
+
+.banner, footer {
+    min-height: 90px;
+    padding: clamp(0.9375rem, 0.6875rem + 1.25vw, 2.1875rem) 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner {
+    border-bottom-color: var(--soft-ember-accent);
+}
+
+footer {
+    z-index: 9;
+    margin-top: -3px;
+    border-top-color: var(--soft-ember-accent);
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: clamp(2.5rem, 2.25rem + 1.25vw, 3.75rem);
+}
+
+h1 span, footer span {
+    color: var(--soft-ember-accent);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Inter";
+}
+
+nav.sidebar {
+    border-right-color: var(--soft-ember-accent);
+}
+
+.sidebar {
+    z-index: 10;
+    position: relative;
+    margin-top: -3px;
+    width: 170px;
+    padding: 25px 10px;
+    border-right: var(--soft-ember-primary) 3px solid;
+}
+
+.sidebar::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: calc(100% + 6px);
+    top: -3px;
+    left: calc(100vw - 33px);
+    background-color: var(--soft-ember-primary);
+    border: 3px solid transparent;
+    border-left-color: var(--soft-ember-accent);
+}
+
+.sidebar h2 {
+    font-family: "KodeMono";
+    font-size: clamp(1.25rem, 1.1875rem + 0.3125vw, 1.5625rem);
+    text-align: center;
+}
+
+.sidebar ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: var(--soft-ember-accent);
+    transition: letter-spacing .3s ease-in-out;
+}
+
+.sidebar a:hover, .sidebar a.active {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar a:focus-visible {
+    padding: 1px 3px;   
+    outline: var(--soft-ember-accent) 2px solid;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar a.active {
+    text-decoration: underline 2px dotted;
+}
+
+/* ---- */
+/* What to change in each CSS, depending on the needs. */
+/* ---- */
+
+.container {
+    margin: 15px;
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-flow: dense;
+}
+
+article {
+    border: 2px solid var(--soft-ember-shadow);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+/* responsive */
+
+@media screen and (max-width: 600px) {
+    main {
+            grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: none;
+    }
+}
