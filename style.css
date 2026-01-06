@@ -1,8 +1,12 @@
 :root {
-    --soft-ember-primary: #1E2A33;
-    --soft-ember-secondary: #f4f4f2;
-    --soft-ember-accent: #f4a261;
-    --soft-ember-shadow: #141c22;
+    --bg-dark: hsl(0 0% 5%);
+    --bg: hsl(0 0% 10%);
+    --bg-light: hsl(0 0% 20%);
+    --border: hsl(0 0% 35%);
+    --text: hsl(0 0% 90%);
+    --text-pastel: hsl(0 0% 75%);
+    --action-primary: hsl(40 75% 50%); /* AAA : 8.44 - bg-dark, 7.56 - bg / AA 5.49 bg-light */
+    --action-secondary: hsl(200 75% 75%); /* AAA 11,42 - bg-dark, 10.23 - bg, 7,42 - bg-light */
 }
 
 /* Adding new Fonts */
@@ -73,147 +77,160 @@
 
 html {
     font-family: "KodeMono";
-    color: var(--soft-ember-primary);
-    background-color: var(--soft-ember-secondary);
     cursor: default;
 }
 
 /* Style that will be kept between all the pages */
 
-main {
+body {
+    color: var(--text-pastel);
+    background-color: var(--bg);
+    min-height: 100vh;
+    min-height: 100dvh;
+
     display: grid;
-    grid-template-columns: 170px 1fr 30px;
-    grid-template-rows: minmax(350px, 1fr);
-    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
+    grid-template-columns: 0rem 1fr;
+    grid-template-rows: 7rem 1fr 7rem;
+    grid-template-areas: 
+    "nav banner"
+    "nav content"
+    "nav footer";
+
+    transition: grid-template-columns .3s ease-in-out;
 }
 
-.banner, .sidebar, footer {
-    color: var(--soft-ember-secondary);
-    background-color: var(--soft-ember-primary);
-    border: transparent 3px solid;
-}
-
-.banner, footer {
-    min-height: 90px;
-    padding: clamp(0.9375rem, 0.6875rem + 1.25vw, 2.1875rem) 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.banner {
-    border-bottom-color: var(--soft-ember-accent);
-}
-
-footer {
-    z-index: 9;
-    margin-top: -3px;
-    border-top-color: var(--soft-ember-accent);
+body.nav-expand {
+    grid-template-columns: 10rem 1fr;
 }
 
 h1 {
-    text-transform: uppercase;
-    font-size: clamp(2.5rem, 2.25rem + 1.25vw, 3.75rem);
+    font-size: clamp(1.75rem, 1.6rem + 0.75vw, 2.5rem);
 }
 
-h1 span, footer span {
-    color: var(--soft-ember-accent);
+h2 {
+    font-size: clamp(1.375rem, 1.2125rem + 0.8125vw, 2.1875rem);
 }
 
-h1, h2, h3, h4, h5, h6 {
+nav h2, h3 {
+    font-size: clamp(1.25rem, 1.125rem + 0.625vw, 1.875rem);
+}
+
+h1, h2, h3 {
+    color: var(--text);
     font-family: "Inter";
 }
 
-nav.sidebar {
-    border-right-color: var(--soft-ember-accent);
+main {
+    grid-area: content;
+    background-color: var(--bg-light);
 }
 
-.sidebar {
-    z-index: 10;
+.banner {
+    grid-area: banner;
+}
+
+.banner, footer {
+    justify-self: center;
+    align-self: center;
+}
+
+.banner span, footer span {
+    color: var(--action-primary);
+}
+
+footer {
+    grid-area: footer;
+}
+
+/* Side Navigation Section */
+
+nav {
     position: relative;
-    margin-top: -3px;
-    width: 170px;
-    padding: 25px 10px;
-    border-right: var(--soft-ember-primary) 3px solid;
+    grid-area: nav;
+    background-color: var(--bg-dark);
 }
 
-.sidebar::after {
-    content: "";
-    position: absolute;
-    width: 30px;
-    height: calc(100% + 6px);
-    top: -3px;
-    left: calc(100vw - 33px);
-    background-color: var(--soft-ember-primary);
-    border: 3px solid transparent;
-    border-left-color: var(--soft-ember-accent);
+nav ul, nav h2 {
+    overflow: hidden;
 }
 
-.sidebar h2 {
+nav h2 {
     font-family: "KodeMono";
-    font-size: clamp(1.25rem, 1.1875rem + 0.3125vw, 1.5625rem);
     text-align: center;
+    padding: 10px 0;
 }
 
-.sidebar ul {
-    display: flex;
-    flex-direction: column;
+.nav-sidebar {
+    padding-top: 2.5rem;
+}
+
+.skip-to-content {
+    z-index: 10;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    transform: translateY(0);
+    transition: transform .3s ease-in-out;
+}
+
+.skip-to-content:not(:focus) {
+    transform: translateY(-5rem);
+}
+
+nav ul li{
     list-style: none;
+    padding: 3px 15px;
 }
 
-.sidebar a {
+.nav-sidebar a, .skip-to-content {
+    color: var(--action-primary);
     text-decoration: none;
-    color: var(--soft-ember-accent);
-    transition: letter-spacing .3s ease-in-out;
-}
-
-.sidebar a:hover, .sidebar a.active {
     text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.sidebar a:focus-visible {
-    padding: 1px 3px;   
-    outline: var(--soft-ember-accent) 2px solid;
     border-radius: 3px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    transition: letter-spacing .3s ease, outline .3s ease-in-out;
 }
 
-.sidebar a.active {
-    text-decoration: underline 2px dotted;
+.nav-sidebar a:hover, .nav-sidebar a.active, .nav-sidebar a:focus-visible {
+    letter-spacing: 1.5px;  
 }
 
-/* ---- */
-/* What to change in each CSS, depending on the needs. */
-/* ---- */
-
-.container {
-    margin: 15px;
-    display: grid;
-    gap: 15px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-auto-flow: dense;
+.nav-sidebar a.active {
+    text-decoration: underline 2px;
 }
 
-article {
-    border: 2px solid var(--soft-ember-shadow);
-    width: 100%;
-    height: 100%;
-    display: grid;
+.nav-sidebar a:focus-visible, .skip-to-content:focus {
+    outline: 2px var(--action-primary) solid;
+}
+
+#resize-nav {
+    position: absolute;
+    inset: 3.5rem -20px auto auto;
     align-items: center;
-    justify-items: center;
+    border-radius: 50%;
+    border: transparent 3px solid;
+    cursor: pointer;
+    transition: border-color .3s ease-in-out;
 }
 
-/* responsive */
+#resize-nav:hover, #resize-nav:focus-visible {
+    border-color: var(--action-primary);
+    outline: none;
+}
 
-@media screen and (max-width: 600px) {
-    main {
-            grid-template-columns: 1fr;
-    }
+/* Content zone behavior */
 
-    .sidebar {
-        display: none;
-    }
+section.container {
+    margin: 15px;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-flow: dense;
+    
+    gap: 15px;
+    justify-items: center;
+    align-items: center;
+}
+
+p, cite {
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.25rem);
 }
